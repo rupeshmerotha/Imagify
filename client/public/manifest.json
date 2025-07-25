@@ -1,0 +1,8 @@
+{
+  "name": "IMAGIFY App",
+  "short_name": "IMAGIFY",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Image generator and credit purchase app."
+}
