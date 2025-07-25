@@ -9,7 +9,13 @@ const PORT = process.env.PORT || 3000
 const app = express()
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: [
+        'http://localhost:5173',
+        'https://imagify-gray-seven.vercel.app'
+    ],
+    credentials: true
+}))
 await connectDB()
 
 app.use("/api/user", userRouter)
