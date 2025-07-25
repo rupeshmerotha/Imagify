@@ -1,13 +1,21 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets'
 import { Link, useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
 
 const Navbar = () => {
-
     const { setShowLogin, user, credit, logout } = useContext(AppContext)
-
+    const [showMenu, setShowMenu] = useState(false)
     const navigate = useNavigate()
+
+    // Close menu when clicking outside (optional, for better UX)
+    React.useEffect(() => {
+        const handleClick = (e) => {
+            if (!e.target.closest('.profile-menu')) setShowMenu(false)
+        }
+        if (showMenu) document.addEventListener('mousedown', handleClick)
+        return () => document.removeEventListener('mousedown', handleClick)
+    }, [showMenu])
 
     return (
         <div className='flex items-center justify-between py-4'>
@@ -23,10 +31,20 @@ const Navbar = () => {
                                 <p className='text-xs sm:text-sm font-medium text-gray-600'>Credits left : {credit}</p>
                             </button>
                             <p className='text-gray-600 max-sm:hidden pl-4'>Hi, {user.name}</p>
-                            <div className='relative group'>
-                                <img className='w-10 drop-shadow' src={assets.profile_icon} alt="" />
-                                <div className='absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded  pt-12'>
-                                    <ul className='list-none m-0 p-2 bg-white rounded-md border  text-sm'>
+                            <div className='relative profile-menu'>
+                                <img
+                                    className='w-10 drop-shadow cursor-pointer'
+                                    src={assets.profile_icon}
+                                    alt=""
+                                    onClick={() => setShowMenu((prev) => !prev)}
+                                />
+                                {/* Show on hover for large screens, on click for small screens */}
+                                <div className={`
+                                absolute top-0 right-0 z-10 text-black rounded pt-12
+                                ${showMenu ? 'block' : 'hidden'}
+                                group-hover:block
+                            `}>
+                                    <ul className='list-none m-0 p-2 bg-white rounded-md border text-sm'>
                                         <li onClick={logout} className='py-1 px-2 cursor-pointer pr-10'>Logout</li>
                                     </ul>
                                 </div>
