@@ -57,10 +57,8 @@ const Login = () => {
 
 
     useEffect(() => {
-        // Disable scrolling on body when the login is open
         document.body.style.overflow = 'hidden';
 
-        // Cleanup function to re-enable scrolling
         return () => {
             document.body.style.overflow = 'unset';
         };

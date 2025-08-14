@@ -8,7 +8,6 @@ const Navbar = () => {
     const [showMenu, setShowMenu] = useState(false)
     const navigate = useNavigate()
 
-    // Close menu when clicking outside (optional, for better UX)
     React.useEffect(() => {
         const handleClick = (e) => {
             if (!e.target.closest('.profile-menu')) setShowMenu(false)
@@ -38,7 +37,6 @@ const Navbar = () => {
                                     alt=""
                                     onClick={() => setShowMenu((prev) => !prev)}
                                 />
-                                {/* Show on hover for large screens, on click for small screens */}
                                 <div className={`
                                 absolute top-0 right-0 z-10 text-black rounded pt-12
                                 ${showMenu ? 'block' : 'hidden'}
